@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Student } from '../models/api-models/student.model'
+import { AddStudentRequest } from '../models/api-models/add-student-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,15 @@ export class StudentService {
   }
 
   getStudent(studentId: string): Observable<Student> {
-    return this.httpClient.get<Student>(this.baseApiUrl + '/students/' + studentId);
+    return this.httpClient.get<Student>(
+      this.baseApiUrl + '/students/' + studentId
+    );
   }
 
-  updateStudent(studentId: string, studentRequest: Student): Observable<Student> {
+  updateStudent(
+    studentId: string,
+    studentRequest: Student
+  ): Observable<Student> {
     const updateStudentRequest: UpdateStudentRequest = {
       firstName: studentRequest.firstName,
       lastName: studentRequest.lastName,
@@ -28,13 +34,36 @@ export class StudentService {
       mobile: studentRequest.mobile,
       genderId: studentRequest.genderId,
       physicalAddress: studentRequest.address.physicalAddress,
-      postalAddress : studentRequest.address.postalAddress
-    }
+      postalAddress: studentRequest.address.postalAddress,
+    };
 
-    return this.httpClient.put<Student>(this.baseApiUrl + "/students/" + studentId, updateStudentRequest);
+    return this.httpClient.put<Student>(
+      this.baseApiUrl + '/students/' + studentId,
+      updateStudentRequest
+    );
   }
 
   deleteStudent(studentId: string): Observable<Student> {
-    return this.httpClient.delete<Student>(this.baseApiUrl + '/students/' + studentId);
+    return this.httpClient.delete<Student>(
+      this.baseApiUrl + '/students/' + studentId
+    );
+  }
+
+  addStudent(studentRequest: Student): Observable<Student> {
+    const addStudentRequest: AddStudentRequest = {
+      firstName: studentRequest.firstName,
+      lastName: studentRequest.lastName,
+      dateOfBirth: studentRequest.dateOfBirth,
+      email: studentRequest.email,
+      mobile: studentRequest.mobile,
+      genderId: studentRequest.genderId,
+      physicalAddress: studentRequest.address.physicalAddress,
+      postalAddress: studentRequest.address.postalAddress,
+    };
+
+    return this.httpClient.post<Student>(
+      this.baseApiUrl + '/students',
+      addStudentRequest
+    );
   }
 }
