@@ -35,6 +35,7 @@ export class ViewStudentComponent implements OnInit {
 
   isNewStudent = false;
   header = '';
+  displayProfileImageUrl = '';
   genderList: Gender[] = [];
   constructor(
     private readonly studentService: StudentService,
@@ -47,23 +48,23 @@ export class ViewStudentComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.studentId = params.get('id');
       if (this.studentId) {
-        // If the route contains the 'Add'
         if (this.studentId.toLowerCase() === 'Add'.toLowerCase()) {
-          // -> new Student Functionality
           this.isNewStudent = true;
           this.header = 'Add New Student';
-        }
-        //Otherwise
-        else {
-          // -> Existing Student Functionality
+          this.setImage();
+        } else {
           this.isNewStudent = false;
           this.header = ' Edit Student';
 
-        this.studentService
-          .getStudent(this.studentId)
-          .subscribe((successResponse) => {
-            this.student = successResponse;
-          });
+          this.studentService
+            .getStudent(this.studentId)
+            .subscribe((successResponse) => {
+              this.student = successResponse;
+              this.setImage();
+            },
+            (errorResponse)=>{
+              this.setImage();
+            });
         }
 
         this.genderService.getGenderList().subscribe((successResponse) => {
@@ -105,17 +106,47 @@ export class ViewStudentComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.studentService.addStudent(this.student)
-    .subscribe((successResponse) => {
-      this.snackbar.open('Student Added successfully', undefined, {
-        duration: 1500,
-      });
-      setTimeout(() => {
-        this.router.navigateByUrl(`students/${successResponse.id}`);
-      }, 1500);
+    this.studentService.addStudent(this.student).subscribe(
+      (successResponse) => {
+        this.snackbar.open('Student Added successfully', undefined, {
+          duration: 1500,
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl(`students/${successResponse.id}`);
+        }, 1500);
+      },
+      (errorResponse) => {
+        // Log
+      }
+    );
+  }
 
-    }, (errorResponse) => {
-      // Log
-    });
+  uploadImage(event: any): void {
+    if(this.studentId) {
+      const file: File = event.target.files[0];
+      this.studentService.uploadImage(this.student.id, file)
+      .subscribe(
+        (successResponse) => {
+          this.student.profileImageUrl = successResponse;
+          this.setImage();
+          this.snackbar.open('Profile Image Updated', undefined, {
+            duration: 1500,
+          });
+        },
+        (errorResponse) => {
+        }
+      );
+    }
+  }
+
+  private setImage(): void {
+    if (this.student.profileImageUrl && this.student.profileImageUrl != '') {
+      this.displayProfileImageUrl = this.studentService.getImagePath(this.student.profileImageUrl) ;
+    } else {
+      //Display a default
+      console.log(this.student.profileImageUrl);
+
+      this.displayProfileImageUrl = '/assets/user.png';
+    }
   }
 }

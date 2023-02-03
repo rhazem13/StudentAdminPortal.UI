@@ -9,7 +9,7 @@ import { AddStudentRequest } from '../models/api-models/add-student-request.mode
   providedIn: 'root',
 })
 export class StudentService {
-  private baseApiUrl = 'https://localhost:7023/api';
+  private baseApiUrl = 'https://localhost:44392/api';
   constructor(private httpClient: HttpClient) {}
 
   getStudents(): Observable<Student[]> {
@@ -65,5 +65,15 @@ export class StudentService {
       this.baseApiUrl + '/students',
       addStudentRequest
     );
+  }
+
+  uploadImage(studentId: string, file: File): Observable<any>{
+    const formData = new FormData();
+    formData.append("profileImage", file);
+    return this.httpClient.post(this.baseApiUrl + '/students/'+ studentId + '/upload-image', formData,{ responseType:'text' });
+  }
+
+  getImagePath(relativePath: string)  {
+    return `https://localhost:44392/resources/images/${relativePath}`;
   }
 }

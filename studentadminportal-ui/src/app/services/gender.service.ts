@@ -7,11 +7,11 @@ import { Gender } from '../models/api-models/gender.model';
   providedIn: 'root',
 })
 export class GenderService {
-  private baseApiUrl = 'https://localhost:7023/api';
+  private baseApiUrl = 'https://localhost:44392/api';
 
   constructor(private httpClient: HttpClient) {}
 
-  getGenderList() : Observable<Gender[]> {
-    return this.httpClient.get<Gender[]>(this.baseApiUrl+'/genders')
+  getGenderList(): Observable<Gender[]> {
+    return this.httpClient.get<Gender[]>(this.baseApiUrl + '/genders');
   }
 }
