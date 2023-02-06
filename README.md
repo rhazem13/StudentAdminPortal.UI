@@ -1,8 +1,8 @@
 # Student Admin Portal UI
 
 Front End for a Student Admin Portal web application which is a complete end-to-end admin app. On the front page, the Admin would be able to see the list of students and perform filtering, sorting, and pagination on the student's table. We will have another page will be a generic page used to add a new student or update a new student.
+##
 
-## 
 
 - Angular 15
 - Angular Material CSS Library
@@ -26,7 +26,12 @@ to discuss what you would like to change.
 Please make sure to update tests as appropriate.
 
 ## ScreenShots
-
+<p align="center">
+		<img src="assets/Screenshot 2023-02-06 015737.png" alt="Screen Shot">
+</p>
+<p align="center">
+		<img src="assets/Screenshot 2023-02-06 015935.png" alt="Screen Shot">
+</p>
 ## License
 
 MIT License
