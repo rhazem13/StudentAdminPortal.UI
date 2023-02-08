@@ -1,0 +1,64 @@
+<!-- <div>
+  Name:
+  <input [(ngModel)]="user.Email" placeholder="Email" />
+</div>
+<div>
+  Password:
+  <input [(ngModel)]="user.Password" placeholder="Password" />
+</div> -->
+
+<div class="container">
+  <div style="margin-top: 15em; margin-left: 30em">
+    <div class="col-xs-12">
+      <div class="col-xs-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            email
+            required
+            [(ngModel)]="user.Email"
+            required
+          />
+          <mat-error>Not a valid email</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="user.Password"
+            [type]="hide ? 'password' : 'text'"
+            minlength="6"
+          />
+          <mat-error>Password length must be more than 6</mat-error>
+
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="row between-xs">
+            <button mat-raised-button color="secondary" routerLink="/">
+              register
+            </button>
+            <button mat-raised-button color="primary" (click)="login(user)">
+              login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
