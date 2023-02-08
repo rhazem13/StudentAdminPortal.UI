@@ -17,7 +17,7 @@ Front End for a Student Admin Portal web application which is a complete end-to-
 - Create Angular Services
 
 - Use Typesafe models and interfaces
-
+- Auth Interception
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
@@ -25,7 +25,10 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## ScreenShots
+## ScreenShots 
+<p align="center">
+		<img src="assets/Screenshot 2023-02-09 005408.png" alt="Screen Shot">
+</p>
 <p align="center">
 		<img src="assets/Screenshot 2023-02-06 015737.png" alt="Screen Shot">
 </p>
